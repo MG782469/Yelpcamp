@@ -1,126 +1,224 @@
-# 🌲 YelpCamp – Full Stack Campground Listing Application
+# YelpCamp – Full-Stack Campground Marketplace
 
-## 🚀 Overview
-YelpCamp is a full-stack web application that allows users to discover, create, review, and manage campgrounds. Users can share their camping experiences, upload images, and explore campground locations through an interactive map.
+## Overview
 
-The platform provides a secure authentication system, image upload functionality, and location-based visualization to help users easily find and review camping spots.
+YelpCamp is a full-stack campground marketplace that enables users to discover, create, review, and manage campground listings through a secure and interactive web application.
 
----
-
-## 📌 Project Highlights
-
-- Developed a **full-stack campground listing platform** where users can create, view, edit, and delete campgrounds.
-- Implemented **secure user authentication and authorization** using **Passport.js** with login and signup functionality.
-- Added features for **posting reviews and comments** on campgrounds with proper access control.
-- Integrated **image uploads and cloud storage** for campground images.
-- Implemented **location-based map visualization** for campground locations.
-
-### Technologies Used
-- Node.js  
-- Express.js  
-- MongoDB  
-- Mongoose  
-- Passport.js  
-- EJS  
+The application follows the **Model-View-Controller (MVC) architecture** to maintain separation of concerns and modularize application logic. It integrates authentication, authorization, cloud-based image management, geocoding, and interactive map visualization to provide an end-to-end campground discovery and management platform.
 
 ---
 
-## ✨ Key Features
+## Key Features
 
-### 🏕️ Campground Management
-- Create new campgrounds with title, description, price, and location  
-- Edit and update campground details  
-- Delete campgrounds created by the user  
-- Upload multiple images for each campground  
+### Campground Management
 
-### 🗺️ Interactive Map Integration
-- Campground locations displayed using **Mapbox**
-- Automatic geocoding of locations
-- Map markers showing campground position
-- Interactive map view on campground pages
+- Create campground listings with title, description, price, and location
+- View and explore campground listings
+- Edit and update campground information
+- Delete user-owned campground listings
+- Upload and manage multiple campground images
 
-### 📷 Image Upload & Storage
-- Upload campground images
+### Geospatial Visualization
+
+- Interactive campground maps powered by **Mapbox**
+- Automatic geocoding of campground locations
+- Dynamic map markers based on geographic coordinates
+- Location-based visualization on campground pages
+
+### Cloud-Based Image Management
+
+- Upload multiple campground images
 - Cloud image storage using **Cloudinary**
-- Image deletion and management
-- Multiple images with carousel display
+- Manage and delete uploaded images
+- Display campground images through an image carousel
 
-### ⭐ Review System
-- Users can leave reviews and ratings for campgrounds
-- View reviews from other users
-- Delete their own reviews
+### Review and Rating System
 
-### 🔐 Authentication & Authorization
+- Submit reviews and ratings for campgrounds
+- View reviews submitted by other users
+- Delete user-owned reviews
+- Review ownership and authorization protection
+
+### Authentication and Authorization
+
 - Secure user registration and login
 - Session-based authentication using **Passport.js**
-- Only campground owners can edit or delete their listings
+- Password hashing and credential protection
+- Route-level authorization middleware
+- Campground ownership validation
 - Review ownership protection
 
-### 💻 Responsive UI
-- Clean and responsive interface using **Bootstrap**
-- Dynamic pages rendered with **EJS**
+### Validation and Error Handling
+
+- Server-side input validation using **Joi**
+- MongoDB data sanitization
+- Protected application routes
+- Centralized asynchronous error handling
+- Custom application error handling
+
+### Responsive User Interface
+
+- Responsive interface built using **Bootstrap**
+- Server-side dynamic rendering with **EJS**
+- Reusable templates and partial components
+- Interactive campground and review workflows
 
 ---
 
-## 🏗️ Technology Stack
+## Technology Stack
 
 ### Backend
-- Node.js  
-- Express.js  
-- MongoDB  
-- Mongoose  
+
+- **Node.js**
+- **Express.js**
+- **MongoDB**
+- **Mongoose**
 
 ### Frontend
-- EJS  
-- Bootstrap  
-- JavaScript  
 
-### Services
-- Cloudinary – Image storage  
-- Mapbox – Maps and geolocation  
-- Passport.js – Authentication  
+- **EJS**
+- **Bootstrap**
+- **JavaScript**
+- **HTML / CSS**
+
+### Authentication and Security
+
+- **Passport.js**
+- **Passport Local**
+- **Express Session**
+- **Joi**
+- **Helmet.js**
+- **Mongo Sanitize**
+
+### Cloud and External Services
+
+- **Cloudinary** – Cloud-based image storage and management
+- **Mapbox** – Geocoding and interactive map visualization
 
 ---
 
-## 📁 Project Structure
+## Application Architecture
+
+YelpCamp follows the **Model-View-Controller (MVC) architectural pattern**.
+
+```text
+Client Request
+      |
+      v
+Express Routes
+      |
+      v
+Middleware
+(Authentication / Authorization / Validation)
+      |
+      v
+Controllers
+(Application Logic)
+      |
+      v
+Mongoose Models
+      |
+      v
+MongoDB
+      |
+      v
+EJS Views
+      |
+      v
+Client Response
+```
+
+This architecture separates routing, application logic, database models, and presentation layers, improving code organization and maintainability.
+
+---
+
+## Project Structure
 
 ```bash
 YelpCamp/
-│
-├── controllers/       # Application logic
-├── models/            # MongoDB schemas
-├── routes/            # Express routes
-├── views/             # EJS templates
-├── public/            # Static assets (CSS, JS, images)
-├── utils/             # Helper functions
-├── schemas.js         # Validation schemas
-├── app.js             # Main server file
-├── package.json
-└── README.md
+|
+├── controllers/        # Application and business logic
+├── models/             # Mongoose models and MongoDB schemas
+├── routes/             # Express route definitions
+├── views/              # EJS templates and reusable partials
+├── public/             # Static assets (CSS and JavaScript)
+├── utils/              # Error handling and utility functions
+├── seeds/              # Database seed data
+├── schemas.js          # Joi validation schemas
+├── app.js              # Application entry point
+├── package.json        # Dependencies and scripts
+└── README.md           # Project documentation
 ```
 
 ---
 
-## ⚙️ Installation & Setup
+## Core Application Workflow
 
-### 1️⃣ Clone the Repository
+```text
+User
+ |
+ v
+Register / Login
+ |
+ v
+Explore Campgrounds
+ |
+ ├── View Campground
+ |       ├── View Location
+ |       ├── View Images
+ |       └── View Reviews
+ |
+ ├── Create Campground
+ |       ├── Enter Details
+ |       ├── Geocode Location
+ |       └── Upload Images
+ |
+ ├── Manage Campground
+ |       ├── Edit Listing
+ |       └── Delete Listing
+ |
+ └── Review Campground
+         ├── Add Review
+         └── Delete Own Review
+```
+
+---
+
+## Security Implementation
+
+The application implements multiple security and validation mechanisms:
+
+- Session-based authentication using **Passport.js**
+- Secure password handling through Passport Local Mongoose
+- Route-level authentication middleware
+- Resource ownership authorization
+- Server-side schema validation using **Joi**
+- MongoDB query sanitization
+- HTTP security headers using **Helmet.js**
+- Protected campground and review operations
+
+---
+
+## Installation and Setup
+
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/MG782469/Yelpcamp.git
 cd Yelpcamp
 ```
 
-### 2️⃣ Install Dependencies
+### 2. Install Dependencies
 
 ```bash
 npm install
 ```
 
-### 3️⃣ Create Environment Variables
+### 3. Configure Environment Variables
 
 Create a `.env` file in the root directory:
 
-```
+```env
 CLOUDINARY_CLOUD_NAME=your_cloud_name
 CLOUDINARY_KEY=your_api_key
 CLOUDINARY_SECRET=your_api_secret
@@ -128,68 +226,64 @@ CLOUDINARY_SECRET=your_api_secret
 MAPBOX_TOKEN=your_mapbox_token
 
 DB_URL=mongodb://localhost:27017/yelp-camp
-SECRET=your_secret_key
+SECRET=your_session_secret
 ```
 
-### 4️⃣ Run the Application
+### 4. Start the Application
 
 ```bash
 node app.js
 ```
 
-or
+For development:
 
 ```bash
 nodemon app.js
 ```
 
-### 5️⃣ Open in Browser
+### 5. Open the Application
 
-```
+Open the application in your browser at:
+
+```text
 http://localhost:5000
 ```
 
 ---
 
-## 🔐 Security Features
+## Deployment
 
-- Password hashing using **bcrypt**
-- Input validation using **Joi**
-- Authorization middleware
-- Protected routes
-
----
-
-## 🚀 Deployment
-
-You can deploy YelpCamp using:
+The application can be deployed on cloud application platforms such as:
 
 - Render
 - Railway
-- Heroku
+
+For production deployment, configure MongoDB, Cloudinary, Mapbox, and session secrets through environment variables.
 
 ---
 
-## 🎯 Future Improvements
+## Future Improvements
 
-- User profile pages  
-- Campground search & filters  
-- Rating analytics  
-- Bookmark favorite campground  
-- Improved mobile responsiveness  
+- User profile and activity pages
+- Campground search and advanced filtering
+- Favorite and bookmark functionality
+- Rating and review analytics
+- Pagination for campground listings
+- API response caching
+- Automated testing
+- Enhanced mobile responsiveness
 
 ---
 
-## 👨‍💻 Author
+## Author
 
 **Manas Girdhar**  
-B.Tech CSE Student  
+B.Tech – Computer Science and Engineering
 
-GitHub:  
-https://github.com/MG782469
+GitHub: `MG782469`
 
 ---
 
-## ⭐ Acknowledgement
+## Acknowledgement
 
-This project was inspired by the web development course by **Colt Steele**.
+This project was inspired by **The Web Developer Bootcamp by Colt Steele** and extended as a full-stack application to explore MVC architecture, authentication, authorization, database integration, cloud image management, and geospatial visualization.
