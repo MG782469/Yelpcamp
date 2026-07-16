@@ -25,13 +25,15 @@ const { storage } = require("./cloudinary");
 const upload = multer({ storage });
 const mongoSanitize=require("express-mongo-sanitize")
 
-mongoose.connect("mongodb://localhost:27017/yelp-camp")
-.then(()=>{
-    console.log("Connection Successful!")
+const dbUrl = process.env.DB_URL || "mongodb://127.0.0.1:27017/yelp-camp";
+
+mongoose.connect(dbUrl)
+.then(() => {
+    console.log("MongoDB Connected");
 })
-.catch((err)=>{
-    console.log("Error",err)
-})
+.catch((err) => {
+    console.log("MongoDB Error:", err);
+});
 
 const app=express();
 
@@ -47,12 +49,12 @@ app.set("views",path.join(__dirname,"views"))
 app.use(methodOverride("_method"))
 
 app.use(session({
-  secret: "thisshouldbeabettersecret!",
+  secret: process.env.SECRET || "thisshouldbeabettersecret!",
   resave: false,
   saveUninitialized: true,
   cookie: {
     httpOnly: true,
-    secure: false,
+    secure: process.env.NODE_ENV === "production",
     maxAge: 1000 * 60 * 60 * 24 * 7
   }
 }));
@@ -90,6 +92,8 @@ app.use((err,req,res,next)=>{
     res.status(status).render("campgrounds/error",{err});
 })
 
-app.listen(5000,()=>{
-    console.log("Listening To The Port 5000!")
-})
+const port = process.env.PORT || 5000;
+
+app.listen(port, () => {
+    console.log(`Listening on Port ${port}`);
+});
