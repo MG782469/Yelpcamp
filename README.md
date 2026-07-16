@@ -11,7 +11,7 @@ The application follows the **Model-View-Controller (MVC)** architecture and dem
 > Add your deployed application URL here after deployment.
 
 ```
-https://your-app-url.onrender.com
+[https://your-app-url.onrender.com](https://yelpcamp-production-fa32.up.railway.app/)
 ```
 
 ---
