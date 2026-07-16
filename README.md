@@ -11,7 +11,7 @@ The application follows the **Model-View-Controller (MVC)** architecture and dem
 > Add your deployed application URL here after deployment.
 
 ```
-https://yelpcamp-production-770f.up.railway.app/campgrounds
+https://yelpcamp-production-770f.up.railway.app/
 ```
 
 ---
