@@ -1,289 +1,423 @@
-# YelpCamp – Full-Stack Campground Marketplace
+# YelpCamp
 
-## Overview
+A full-stack campground marketplace that allows users to discover, create, review, and manage campgrounds through a secure and interactive web application.
 
-YelpCamp is a full-stack campground marketplace that enables users to discover, create, review, and manage campground listings through a secure and interactive web application.
-
-The application follows the **Model-View-Controller (MVC) architecture** to maintain separation of concerns and modularize application logic. It integrates authentication, authorization, cloud-based image management, geocoding, and interactive map visualization to provide an end-to-end campground discovery and management platform.
+The application follows the **Model-View-Controller (MVC)** architecture and demonstrates real-world backend development concepts including authentication, authorization, RESTful routing, file uploads, cloud storage integration, geospatial services, server-side validation, and database relationships.
 
 ---
 
-## Key Features
+## Live Demo
+
+> Add your deployed application URL here after deployment.
+
+```
+https://your-app-url.onrender.com
+```
+
+---
+
+## Features
+
+### User Authentication
+
+- User registration and login
+- Session-based authentication using Passport.js
+- Secure password hashing with Passport Local Mongoose
+- Logout functionality
+- Protected routes
 
 ### Campground Management
 
-- Create campground listings with title, description, price, and location
-- View and explore campground listings
-- Edit and update campground information
-- Delete user-owned campground listings
-- Upload and manage multiple campground images
+- Create campground listings
+- Edit campground details
+- Delete owned campgrounds
+- Browse all campgrounds
+- View detailed campground pages
+- Ownership authorization
 
-### Geospatial Visualization
-
-- Interactive campground maps powered by **Mapbox**
-- Automatic geocoding of campground locations
-- Dynamic map markers based on geographic coordinates
-- Location-based visualization on campground pages
-
-### Cloud-Based Image Management
+### Image Management
 
 - Upload multiple campground images
-- Cloud image storage using **Cloudinary**
-- Manage and delete uploaded images
-- Display campground images through an image carousel
+- Cloudinary integration
+- Delete uploaded images
+- Cloud-based image storage
 
-### Review and Rating System
+### Maps & Geocoding
 
-- Submit reviews and ratings for campgrounds
-- View reviews submitted by other users
-- Delete user-owned reviews
-- Review ownership and authorization protection
+- Automatic location geocoding
+- Interactive Mapbox maps
+- Geographic coordinates
+- Location markers
 
-### Authentication and Authorization
+### Reviews
 
-- Secure user registration and login
-- Session-based authentication using **Passport.js**
-- Password hashing and credential protection
-- Route-level authorization middleware
-- Campground ownership validation
-- Review ownership protection
+- Add reviews
+- Delete owned reviews
+- Review authorization
+- Display campground reviews
 
-### Validation and Error Handling
+### Validation & Security
 
-- Server-side input validation using **Joi**
-- MongoDB data sanitization
-- Protected application routes
-- Centralized asynchronous error handling
-- Custom application error handling
-
-### Responsive User Interface
-
-- Responsive interface built using **Bootstrap**
-- Server-side dynamic rendering with **EJS**
-- Reusable templates and partial components
-- Interactive campground and review workflows
+- Joi server-side validation
+- MongoDB query sanitization
+- Helmet security headers
+- Centralized error handling
+- Authentication middleware
+- Authorization middleware
 
 ---
 
-## Technology Stack
+## Tech Stack
 
 ### Backend
 
-- **Node.js**
-- **Express.js**
-- **MongoDB**
-- **Mongoose**
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
 
 ### Frontend
 
-- **EJS**
-- **Bootstrap**
-- **JavaScript**
-- **HTML / CSS**
+- EJS
+- Bootstrap 5
+- HTML
+- CSS
+- JavaScript
 
-### Authentication and Security
+### Authentication
 
-- **Passport.js**
-- **Passport Local**
-- **Express Session**
-- **Joi**
-- **Helmet.js**
-- **Mongo Sanitize**
+- Passport.js
+- Passport Local
+- Passport Local Mongoose
+- Express Session
 
-### Cloud and External Services
+### Validation & Security
 
-- **Cloudinary** – Cloud-based image storage and management
-- **Mapbox** – Geocoding and interactive map visualization
+- Joi
+- Helmet
+- Express Mongo Sanitize
 
----
+### Cloud Services
 
-## Application Architecture
-
-YelpCamp follows the **Model-View-Controller (MVC) architectural pattern**.
-
-```text
-Client Request
-      |
-      v
-Express Routes
-      |
-      v
-Middleware
-(Authentication / Authorization / Validation)
-      |
-      v
-Controllers
-(Application Logic)
-      |
-      v
-Mongoose Models
-      |
-      v
-MongoDB
-      |
-      v
-EJS Views
-      |
-      v
-Client Response
-```
-
-This architecture separates routing, application logic, database models, and presentation layers, improving code organization and maintainability.
+- Cloudinary
+- Mapbox
 
 ---
 
 ## Project Structure
 
-```bash
-YelpCamp/
-|
-├── controllers/        # Application and business logic
-├── models/             # Mongoose models and MongoDB schemas
-├── routes/             # Express route definitions
-├── views/              # EJS templates and reusable partials
-├── public/             # Static assets (CSS and JavaScript)
-├── utils/              # Error handling and utility functions
-├── seeds/              # Database seed data
-├── schemas.js          # Joi validation schemas
-├── app.js              # Application entry point
-├── package.json        # Dependencies and scripts
-└── README.md           # Project documentation
+```
+YelpCamp
+│
+├── controllers/
+├── middleware/
+├── models/
+├── public/
+│   ├── css/
+│   ├── js/
+│   └── images/
+│
+├── routes/
+├── seeds/
+├── utils/
+├── views/
+│   ├── campgrounds/
+│   ├── reviews/
+│   ├── users/
+│   ├── layouts/
+│   └── partials/
+│
+├── cloudinary/
+├── schemas.js
+├── app.js
+├── package.json
+├── .env.example
+└── README.md
 ```
 
 ---
 
-## Core Application Workflow
+## Application Architecture
 
-```text
+The application follows the MVC architecture.
+
+```
+                 Client
+
+                    │
+
+                    ▼
+
+             Express Routes
+
+                    │
+
+                    ▼
+
+              Middleware
+
+     Authentication • Validation
+
+          Authorization
+
+                    │
+
+                    ▼
+
+              Controllers
+
+          Business Logic
+
+                    │
+
+                    ▼
+
+             Mongoose Models
+
+                    │
+
+                    ▼
+
+               MongoDB Atlas
+
+                    │
+
+                    ▼
+
+               EJS Templates
+
+                    │
+
+                    ▼
+
+              HTTP Response
+```
+
+---
+
+## Application Workflow
+
+```
 User
- |
- v
-Register / Login
- |
- v
-Explore Campgrounds
- |
- ├── View Campground
- |       ├── View Location
- |       ├── View Images
- |       └── View Reviews
- |
- ├── Create Campground
- |       ├── Enter Details
- |       ├── Geocode Location
- |       └── Upload Images
- |
- ├── Manage Campground
- |       ├── Edit Listing
- |       └── Delete Listing
- |
- └── Review Campground
-         ├── Add Review
-         └── Delete Own Review
+
+│
+
+├── Register
+
+├── Login
+
+│
+
+└── Campgrounds
+
+      │
+
+      ├── Browse Campgrounds
+
+      │
+
+      ├── View Campground
+
+      │      ├── Images
+
+      │      ├── Reviews
+
+      │      └── Map
+
+      │
+
+      ├── Create Campground
+
+      │      ├── Upload Images
+
+      │      ├── Add Location
+
+      │      └── Save
+
+      │
+
+      ├── Edit Campground
+
+      │
+
+      ├── Delete Campground
+
+      │
+
+      ├── Add Review
+
+      │
+
+      └── Delete Review
 ```
 
 ---
 
-## Security Implementation
+## Security Features
 
-The application implements multiple security and validation mechanisms:
-
-- Session-based authentication using **Passport.js**
-- Secure password handling through Passport Local Mongoose
-- Route-level authentication middleware
-- Resource ownership authorization
-- Server-side schema validation using **Joi**
-- MongoDB query sanitization
-- HTTP security headers using **Helmet.js**
-- Protected campground and review operations
+- Session-based authentication
+- Password hashing
+- Route protection
+- Resource ownership validation
+- Joi validation
+- MongoDB sanitization
+- Helmet security headers
+- Flash messages
+- Centralized async error handling
 
 ---
 
-## Installation and Setup
+## Installation
 
-### 1. Clone the Repository
+### Clone Repository
 
 ```bash
-git clone https://github.com/MG782469/Yelpcamp.git
-cd Yelpcamp
+git clone https://github.com/<your-username>/YelpCamp.git
+
+cd YelpCamp
 ```
 
-### 2. Install Dependencies
+---
+
+### Install Dependencies
 
 ```bash
 npm install
 ```
 
-### 3. Configure Environment Variables
+---
 
-Create a `.env` file in the root directory:
+### Configure Environment Variables
+
+Create a `.env` file in the project root.
 
 ```env
 CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_KEY=your_api_key
-CLOUDINARY_SECRET=your_api_secret
+CLOUDINARY_KEY=your_cloudinary_key
+CLOUDINARY_SECRET=your_cloudinary_secret
 
-MAPBOX_TOKEN=your_mapbox_token
+MAPBOX_TOKEN=your_mapbox_access_token
 
-DB_URL=mongodb://localhost:27017/yelp-camp
+DB_URL=your_mongodb_connection_string
+
 SECRET=your_session_secret
 ```
 
-### 4. Start the Application
+---
 
-```bash
-node app.js
-```
+### MongoDB
 
-For development:
-
-```bash
-nodemon app.js
-```
-
-### 5. Open the Application
-
-Open the application in your browser at:
+For local development
 
 ```text
+mongodb://127.0.0.1:27017/yelp-camp
+```
+
+For production, use a MongoDB Atlas connection string.
+
+---
+
+### Run the Application
+
+Development
+
+```bash
+npm run dev
+```
+
+Production
+
+```bash
+npm start
+```
+
+Open
+
+```
 http://localhost:5000
 ```
 
 ---
 
+## Environment Variables
+
+| Variable | Description |
+|----------|-------------|
+| CLOUDINARY_CLOUD_NAME | Cloudinary cloud name |
+| CLOUDINARY_KEY | Cloudinary API key |
+| CLOUDINARY_SECRET | Cloudinary API secret |
+| MAPBOX_TOKEN | Mapbox access token |
+| DB_URL | MongoDB connection string |
+| SECRET | Express session secret |
+
+---
+
 ## Deployment
 
-The application can be deployed on cloud application platforms such as:
+The application can be deployed on platforms such as:
 
 - Render
 - Railway
 
-For production deployment, configure MongoDB, Cloudinary, Mapbox, and session secrets through environment variables.
+For production deployment:
+
+- Configure MongoDB Atlas
+- Configure Cloudinary credentials
+- Configure Mapbox access token
+- Add all environment variables
+- Set `NODE_ENV=production`
 
 ---
 
-## Future Improvements
+## Future Enhancements
 
-- User profile and activity pages
-- Campground search and advanced filtering
-- Favorite and bookmark functionality
-- Rating and review analytics
-- Pagination for campground listings
-- API response caching
-- Automated testing
-- Enhanced mobile responsiveness
+- Search functionality
+- Advanced filtering
+- Pagination
+- User profile pages
+- Favorites / Wishlist
+- Notifications
+- Admin dashboard
+- REST API
+- Docker support
+- Unit & Integration testing
+- CI/CD pipeline
+
+---
+
+## Screenshots
+
+### Home Page
+
+<img width="950" height="439" alt="image" src="https://github.com/user-attachments/assets/91e824d7-86f5-4efc-8d23-53d65d42c2d1" />
+
+### Campground Details
+
+<img width="946" height="440" alt="image" src="https://github.com/user-attachments/assets/0de04043-ca33-4297-8427-35a10155262f" />
+
+### Create Campground
+
+<img width="949" height="439" alt="image" src="https://github.com/user-attachments/assets/9a4bc6f9-00af-4923-80cf-17c463cd050c" />
+
+### Login
+
+<img width="948" height="438" alt="image" src="https://github.com/user-attachments/assets/756ba76d-2c2c-48a9-a025-8e63d8028cde" />
+
 
 ---
 
 ## Author
 
-**Manas Girdhar**  
+**Manas Girdhar**
+
 B.Tech – Computer Science and Engineering
 
-GitHub: `MG782469`
+GitHub: https://github.com/MG782469
+
+LinkedIn:https://www.linkedin.com/in/manas-girdhar-36611b324/
 
 ---
 
-## Acknowledgement
+## Acknowledgements
 
-This project was inspired by **The Web Developer Bootcamp by Colt Steele** and extended as a full-stack application to explore MVC architecture, authentication, authorization, database integration, cloud image management, and geospatial visualization.
+This project was originally inspired by **The Web Developer Bootcamp** by **Colt Steele** and has been extended with additional features including cloud image storage, interactive maps, improved security, authentication, authorization, and deployment-ready architecture.
