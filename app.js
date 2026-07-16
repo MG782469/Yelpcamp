@@ -36,7 +36,9 @@ mongoose.connect(dbUrl)
 });
 
 const app=express();
-
+if (process.env.NODE_ENV === "production") {
+    app.set("trust proxy", 1);
+}
 app.use(express.urlencoded({extended:true}))
 app.use(express.json());
 
@@ -49,14 +51,15 @@ app.set("views",path.join(__dirname,"views"))
 app.use(methodOverride("_method"))
 
 app.use(session({
-  secret: process.env.SECRET || "thisshouldbeabettersecret!",
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    maxAge: 1000 * 60 * 60 * 24 * 7
-  }
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        maxAge: 1000 * 60 * 60 * 24 * 7
+    }
 }));
 
 app.use(flash());
